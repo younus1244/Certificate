@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    #certificate-container {
+      text-align: center;
+      padding: 20px;
+      border: 2px solid #3498db;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #name-input {
+      padding: 8px;
+      font-size: 16px;
+      margin: 10px 0;
+      width: 60%;
+    }
+
+    #generate-button {
+      background-color: #3498db;
+      color: #ffffff;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    #generate-button:hover {
+      background-color: #2980b9;
+    }
+
+    #certificate {
+      display: none;
+      margin-top: 20px;
+    }
+
+    #certificate img {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="certificate-container">
+    <label for="name-input">Enter Recipient's Name:</label>
+    <input type="text" id="name-input" placeholder="Recipient's Name">
+    <button id="generate-button" onclick="generateCertificate()">Generate Certificate</button>
+
+    <div id="certificate">
+      <h2>Certificate of Achievement</h2>
+      <p>This is to certify that</p>
+      <h1 id="certificate-name"></h1>
+      <p>has successfully completed the course</p>
+      <img src="CERTIFICATE.jpg" alt="Certificate Template">
+    </div>
+  </div>
+
+  <script>
+    function generateCertificate() {
+      var recipientName = document.getElementById("name-input").value;
+      var certificateNameElement = document.getElementById("certificate-name");
+
+      // Update the certificate with the recipient's name
+      certificateNameElement.textContent = recipientName;
+
+      // Show the generated certificate
+      document.getElementById("certificate").style.display = "block";
+    }
+  </script>
+</body>
+</html>
