@@ -56,9 +56,8 @@
       margin-top: 20px;
     }
 
-    #certificate img {
-      width: 100%;
-      max-width: 400px;
+    #generated-certificate {
+      max-width: 100%;
       margin-top: 10px;
     }
   </style>
@@ -73,8 +72,7 @@
       <h2>Certificate of Achievement</h2>
       <p>This is to certify that</p>
       <h1 id="certificate-name"></h1>
-      <p>has successfully completed the course</p>
-      <img src="CERTIFICATE.jpg" alt="Certificate Template">
+      <canvas id="generated-certificate"></canvas>
     </div>
   </div>
 
@@ -88,6 +86,25 @@
 
       // Show the generated certificate
       document.getElementById("certificate").style.display = "block";
+
+      // Generate the composite image
+      var canvas = document.getElementById("generated-certificate");
+      var ctx = canvas.getContext("2d");
+
+      // Load the certificate template image
+      var templateImage = new Image();
+      templateImage.src = "CERTIFICATE.jpg";
+
+      templateImage.onload = function () {
+        // Draw the template image on the canvas
+        ctx.drawImage(templateImage, 0, 0, canvas.width, canvas.height);
+
+        // Draw the recipient's name on the canvas
+        ctx.font = "bold 24px 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        ctx.fillStyle = "#3498db";
+        ctx.textAlign = "center";
+        ctx.fillText(recipientName, canvas.width / 2, canvas.height / 2 + 50);
+      };
     }
   </script>
 </body>
