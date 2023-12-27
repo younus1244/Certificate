@@ -73,15 +73,16 @@
     <div class="container">
         <header>Text to Speech Converter</header>
         <select id="languageSelect">
-            <option value="en-US">English (US)</option>
-            <option value="ta-IN">Tamil (Indian)</option>
-            <option value="es-ES">Spanish (Spain)</option>
+            <option value="en">English</option>
+            <option value="ta">Tamil</option>
+            <option value="es">Spanish</option>
             <!-- Add more language options as needed -->
         </select>
         <textarea placeholder="Enter text"></textarea>
         <button>Convert to Speech</button>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         const textarea = document.querySelector("textarea");
         const button = document.querySelector("button");
@@ -89,20 +90,26 @@
         let isSpeaking = true;
 
         const textToSpeech = () => {
-            const synth = window.speechSynthesis;
             const text = textarea.value;
-            const selectedLanguage = languageSelect.value;
+            const language = languageSelect.value;
 
-            if (!synth.speaking && text) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = selectedLanguage;
-                synth.speak(utterance);
+            if (text) {
+                const googleTranslateAPI = `https://translate.googleapis.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(
+                    text
+                )}&tl=${language}&client=tw-ob`;
+
+                // Use jQuery to create an audio element and play the translated text
+                $("<audio></audio>")
+                    .attr({
+                        src: googleTranslateAPI,
+                        autoplay: "autoplay",
+                    })
+                    .appendTo("body");
             }
-
-            // Rest of your logic...
         };
 
         button.addEventListener("click", textToSpeech);
     </script>
 </body>
-</html>
+    </html>
+    
