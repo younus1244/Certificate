@@ -73,8 +73,10 @@
     <div class="container">
         <header>Text to Speech Converter</header>
         <select id="languageSelect">
-            <option value="en">English</option>
-            <option value="ta-IN">Indian Tamil</option>
+            <option value="en-US">English (US)</option>
+            <option value="ta-IN">Tamil (Indian)</option>
+            <option value="es-ES">Spanish (Spain)</option>
+            <!-- Add more language options as needed -->
         </select>
         <textarea placeholder="Enter text"></textarea>
         <button>Convert to Speech</button>
@@ -89,35 +91,15 @@
         const textToSpeech = () => {
             const synth = window.speechSynthesis;
             const text = textarea.value;
-            const language = languageSelect.value;
+            const selectedLanguage = languageSelect.value;
 
             if (!synth.speaking && text) {
-                const utternace = new SpeechSynthesisUtterance(text);
-                utternace.lang = language;
-                synth.speak(utternace);
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = selectedLanguage;
+                synth.speak(utterance);
             }
 
-            if (text.length > 50) {
-                if (synth.speaking && isSpeaking) {
-                    button.innerText = "Pause";
-                    synth.resume();
-                    isSpeaking = false;
-                } else {
-                    button.innerText = "Resume";
-                    synth.pause();
-                    isSpeaking = true;
-                }
-            } else {
-                isSpeaking = false;
-                button.innerText = "Speaking";
-            }
-
-            setInterval(() => {
-                if (!synth.speaking && !isSpeaking) {
-                    isSpeaking = true;
-                    button.innerText = "Convert to Speech";
-                }
-            });
+            // Rest of your logic...
         };
 
         button.addEventListener("click", textToSpeech);
